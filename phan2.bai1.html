@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoantontai()" type="submit" value="baitoantontai">
+    <script>
+    function baitoantontai(){
+         function hexagonMagic() {
+        const numbers = Array.from({ length: 19 }, (_, i) => i + 1);
+        const targetSum = numbers.reduce((acc, val) => acc + val, 0) / 6;
+    
+        function findMagicHexagon(sides, hexagon) {
+            if (sides === 0) {
+                // Kiểm tra xem tổng các cạnh có bằng targetSum không
+                if (hexagon[0] + hexagon[1] + hexagon[2] === targetSum &&
+                    hexagon[0] + hexagon[2] + hexagon[3] === targetSum &&
+                    hexagon[0] + hexagon[3] + hexagon[4] === targetSum &&
+                    hexagon[0] + hexagon[4] + hexagon[5] === targetSum) {
+                    console.log(hexagon.join(', '));
+                }
+                return;
+            }
+    
+            for (let i = 0; i < numbers.length; i++) {
+                if (!hexagon.includes(numbers[i])) {
+                    const nextHexagon = [...hexagon, numbers[i]];
+                    if (nextHexagon.length >= 3) {
+                        const currentSum = nextHexagon.slice(-3).reduce((acc, val) => acc + val, 0);
+                        if (currentSum > targetSum) continue;
+                    }
+                    findMagicHexagon(sides - 1, nextHexagon);
+                }
+            }
+        }
+    
+        findMagicHexagon(19, []);
+    }
+    
+    hexagonMagic();
+}
+</script>
+</body>
+   </html
+   

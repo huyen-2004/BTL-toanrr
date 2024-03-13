@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoantoiuu ()" type="submit" value="baitoantoiuu">
+    <script>
+    function cost(i, j) {
+      // Hàm này trả về chi phí đi từ thành phố i đến thành phố j
+      // Thay thế phần code này bằng hàm tính chi phí của bạn
+      // Ví dụ: return costMatrix[i][j];
+  }
+  
+  function travellingSalesman(n, costMatrix) {
+      let minCost = Infinity;
+      let minPath = null;
+  
+      // Duyệt qua tất cả các hành trình có thể có
+      for (let path of permutations([...Array(n).keys()].slice(1))) {
+          let currentCost = 0;
+          let currentPath = [0, ...path, 0]; // Thêm thành phố xuất phát vào đầu và cuối hành trình
+  
+          // Tính tổng chi phí của hành trình
+          for (let i = 0; i < n; i++) {
+              currentCost += costMatrix[currentPath[i]][currentPath[i+1]];
+          }
+  
+          // Cập nhật hành trình có chi phí nhỏ nhất
+          if (currentCost < minCost) {
+              minCost = currentCost;
+              minPath = currentPath;
+          }
+      }
+  
+      return [minCost, minPath];
+  }
+  
+  // Hàm sinh các hoán vị của một mảng
+  function* permutations(arr) {
+      if (arr.length <= 1) {
+          yield arr;
+      } else {
+          for (let perm of permutations(arr.slice(1))) {
+              for (let i = 0; i < arr.length; i++) {
+                  yield [...perm.slice(0, i), arr[0], ...perm.slice(i)];
+              }
+          }
+      }
+  }
+  
+  // Sử dụng hàm
+  let n = 7; // Số lượng thành phố
+  let costMatrix = [
+      [0, 1, 2, 3, 4, 5, 6],
+      [1, 0, 2, 3, 4, 5, 6],
+      [2, 2, 0, 3, 4, 5, 6],
+      [3, 3, 3, 0, 4, 5, 6],
+      [4, 4, 4, 4, 0, 5, 6],
+      [5, 5, 5, 5, 5, 0, 6],
+      [6, 6, 6, 6, 6, 6, 0]
+  ]; // Ma trận chi phí đi từ thành phố i đến thành phố j
+  
+  let [minCost, minPath] = travellingSalesman(n, costMatrix);
+  console.log("Chi phí nhỏ nhất:", minCost);
+  console.log("Hành trình:", minPath);
+ </script>
+</body>
+</html>
