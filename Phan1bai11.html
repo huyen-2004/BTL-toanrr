@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dãy số tự nhiên có tổng là 20</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    #result {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<h2>Tìm số lượng dãy số tự nhiên gồm 4 số liên tiếp có tổng là 20</h2>
+
+<button onclick="countSequences()">Tìm số lượng</button>
+
+<div id="result"></div>
+
+<script>
+function countSequences() {
+    const targetSum = 20;
+    let count = 0;
+
+    for (let i = 1; i <= 20; i++) {
+        let sum = i;
+        for (let j = i + 1; j < i + 4; j++) {
+            sum += j;
+        }
+        if (sum === targetSum) {
+            count++;
+        }
+    }
+
+    displayResult(count);
+}
+
+function displayResult(count) {
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML = '';
+    const resultText = document.createElement('p');
+    resultText.textContent = `Số lượng dãy số tự nhiên gồm 4 số liên tiếp có tổng là 20 là: ${count}`;
+    resultContainer.appendChild(resultText);
+}
+</script>
+</body>
+</html>
